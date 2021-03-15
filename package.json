@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "aedes": "^0.45.0",
     "koa": "^2.13.1"
   }
 }
