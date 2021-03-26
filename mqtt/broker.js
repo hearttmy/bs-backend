@@ -1,13 +1,20 @@
 const aedes = require('aedes')
 const net = require('net')
+const Device = require('../model/Device')
 
 const Aedes = new aedes()
 const server = net.createServer(Aedes.handle)
 
 Aedes.on('publish', function (packet, client) {
   const topic = packet.topic
-  if (topic == 'testapp') {
-
+  if (topic === 'testapp') {
+    const payload = JSON.parse(packet.payload.toString())
+    const device = new Device(payload)
+    device.save()
+      .then(() => {})
+      .catch(() => {
+        console.log("Fail to insert!")
+      })
   }
 })
 
