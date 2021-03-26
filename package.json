@@ -2,14 +2,17 @@
   "name": "bs_backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
+    "mqtt": "node ./mqtt/broker.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@koa/cors": "^3.1.0",
     "aedes": "^0.45.0",
-    "koa": "^2.13.1"
+    "koa": "^2.13.1",
+    "koa-mongo": "^1.9.3"
   }
 }
