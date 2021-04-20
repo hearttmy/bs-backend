@@ -11,7 +11,6 @@ Aedes.on('publish', function (packet, client) {
     const payload = JSON.parse(packet.payload.toString())
     const device = new Device(payload)
     device.save()
-      .then(() => {})
       .catch(() => {
         console.log("Fail to insert!")
       })

@@ -8,9 +8,9 @@ mongoose.connect(dbConfig.dbURL, {useNewUrlParser: true , useUnifiedTopology: tr
   .catch(err => {
     console.log(err)
   })
+mongoose.set('useCreateIndex', true)
 
 module.exports = mongoose
-
 
 
 
