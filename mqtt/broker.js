@@ -1,8 +1,7 @@
-const aedes = require('aedes')
+const Aedes = require('aedes')()
 const net = require('net')
 const Device = require('../model/Device')
-
-const Aedes = new aedes()
+const Settings = require('../model/Settings')
 const server = net.createServer(Aedes.handle)
 
 Aedes.on('publish', function (packet, client) {
@@ -12,8 +11,11 @@ Aedes.on('publish', function (packet, client) {
     const device = new Device(payload)
     device.save()
       .catch(() => {
-        console.log("Fail to insert!")
+        console.log('Fail to insert!')
       })
+    const setting = new Settings({deviceId: payload.clientId, deviceName: 'default'})
+    setting.save()
+      .catch(() => {})
   }
 })
 
@@ -21,4 +23,6 @@ const port = 1883
 server.listen(port, function () {
   console.log('server started and listening on port ', port)
 })
+
+module.exports = Aedes
 

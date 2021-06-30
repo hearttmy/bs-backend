@@ -4,7 +4,7 @@ const keys = require('../config/keys')
 const code = require('../config/httpCode')
 
 module.exports = {
-  async Login (ctx) {
+  async login (ctx) {
     const { username, password } = ctx.request.body
     const findResult = await User.find({ username: username })
     if (findResult.length === 0 || password !== findResult[0].password) {
@@ -18,7 +18,7 @@ module.exports = {
       return ctx.body = { code: code.success, data: { token: 'Bearer ' + token } }
     }
   },
-  async Register (ctx) {
+  async register (ctx) {
     const newUser = new User(ctx.request.body)
     await newUser.save()
       .then(() => {
