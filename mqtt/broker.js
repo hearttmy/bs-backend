@@ -13,9 +13,18 @@ Aedes.on('publish', function (packet, client) {
       .catch(() => {
         console.log('Fail to insert!')
       })
-    const setting = new Settings({deviceId: payload.clientId, deviceName: 'default'})
-    setting.save()
-      .catch(() => {})
+    Settings.findOne({deviceId: payload.clientId}, function(err, doc) {
+      if (err) return
+      if (!doc) {
+        console.log(doc)
+        const setting = new Settings({deviceId: payload.clientId, deviceName: 'default'})
+        setting.save()
+          .catch(() => {})
+      } else {
+        Settings.where({deviceId: payload.clientId}).update({messageNum: doc.messageNum + 1})
+      }
+    })
+
   }
 })
 
